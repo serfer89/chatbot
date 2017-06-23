@@ -4,18 +4,14 @@
 
 var searchArgs;
 var session = 0;
+var response;
 
-
-token(login, pass, function(response) {
-console.log(response);
-return response;
-});
 
 
 
 var token = function (login, pass, callback) {
 var Client = require('node-rest-client').Client;
-var temp_session = session;
+
 //this.tempt_session = session;
 
 
@@ -39,7 +35,7 @@ client.post("https://planetakino.atlassian.net/rest/auth/1/session", loginArgs, 
         if (response.statusCode == 200) {
 		
                 session = data.session;
-				temp_session = session;
+
 
                 // Get the session information and store it in a cookie in the header
                 var searchArgs = {
@@ -68,7 +64,7 @@ client.post("https://planetakino.atlassian.net/rest/auth/1/session", loginArgs, 
                 throw "Login failed :(";
         }
 
-				callback(temp_session);
+				callback(session);
 });
 
 
@@ -78,10 +74,8 @@ client.post("https://planetakino.atlassian.net/rest/auth/1/session", loginArgs, 
 
 }
 
-/*
-var login = "s.pavlov@planeta-kino.com.ua";
-var	pass = "Veronika87";
-*/
+
+
 
 
 

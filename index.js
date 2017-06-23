@@ -8,8 +8,18 @@ const TelegramBot = require('node-telegram-bot-api'),
 	bot = new TelegramBot(token, {polling:true});
 var auth = require("./jira.js");
     var t = auth.t();
-	var session_token = auth.token(login, pass);
-	console.log("text"+session_token);
+	var session_token = auth.token(login, pass, function(response) {
+
+		console.log(response);
+
+		return response;
+
+		});
+
+
+
+
+
 
 	
 
