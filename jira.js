@@ -6,6 +6,13 @@ var searchArgs;
 var session = 0;
 
 
+token(login, pass, function(response) {
+console.log(response);
+return response;
+});
+
+
+
 var token = function (login, pass, callback) {
 var Client = require('node-rest-client').Client;
 var temp_session = session;
@@ -71,14 +78,10 @@ client.post("https://planetakino.atlassian.net/rest/auth/1/session", loginArgs, 
 
 }
 
-
+/*
 var login = "s.pavlov@planeta-kino.com.ua";
 var	pass = "Veronika87";
-
-token(login, pass, function(response) {
-console.log(response);
-return response;
-});
+*/
 
 
 
