@@ -1,12 +1,17 @@
 'use strict';
-
+var login = "s.pavlov@planeta-kino.com.ua";
+var	pass = "Veronika87";
 const TelegramBot = require('node-telegram-bot-api'),
       request = require('request'),
       fs = require('fs'),
       token = '322237854:AAFh-FrdOO1As5LxIXx7rHEet6iiCRYvAHw',
-	
 	bot = new TelegramBot(token, {polling:true});
+var auth = require("./jira.js");
+    var t = auth.t();
+	var session_token = auth.token(login, pass);
+	console.log("text"+session_token);
 
+	
 
  let stateSetName = false;
  let notes = [];
@@ -21,7 +26,7 @@ const TelegramBot = require('node-telegram-bot-api'),
         ]
       })
     };
-
+	
 	function stock(id){
 	request('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5', function(error, 		response, body){
 	if(!error && response.statusCode === 200)
