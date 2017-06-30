@@ -24,11 +24,8 @@ var t = auth.t();
 var session_token = auth.token(login, pass, function(response) {
     return response;
 });
+var get_project;
 
-var get_project = auth.project(auth_string, function(response) {
-console.log(response[0].name);
-    return response;
-});
 
 let stateSetName = false;
 let notes = [];
@@ -48,6 +45,10 @@ var main_options = {
                 text: 'Нагадати',
                 callback_data: 'нагадай'
             }],
+			[{
+                text: 'Jira',
+                callback_data: 'jira'
+            }],
             [{
                 text: 'Інше',
                 callback_data: 'інше'
@@ -55,6 +56,42 @@ var main_options = {
         ]
     })
 };
+
+	
+	function jira(id){
+	console.log("jira started");
+	get_project = auth.project(auth_string, function(response) {
+	
+	
+//response.forEach(function(item, i, response) { 
+
+//var but_arr = [+response.forEach(function(item, i, response) { [{text: "12", callback_data: "12"}, {text: "13", callback_data: "13"}]}+']'
+
+var but_arr = [];
+for (var i=0; i<response.length; i++) {
+ console.log("[{text:"+ response[i].name+", "+"callback_data: "+response[i].name+"}],");
+ 
+}
+
+
+
+
+	var jira_but = {
+    
+	reply_markup: JSON.stringify({
+        inline_keyboard: but_arr
+    })
+};
+bot.sendMessage(id, '1', jira_but);
+
+//});
+
+
+console.log(response.length);
+    return response;
+});
+	}
+
 
 function stock(id) {
     request('https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5', function(error, response, body) {
@@ -97,6 +134,9 @@ bot.on('callback_query', function(msg) {
         case 'курс':
             stock(id);
             break;
+		case 'jira':
+			jira(id);
+			break;
     };
 
 });
@@ -149,7 +189,11 @@ bot.on('message', function(msg) {
         stock(id);
     } else if (msgTxt == 'погода') {
         weather(id);
-    }
+    } else if (msgTxt == 'jira') {
+		jira(id);
+	}
+
+	
 
     function getname(msgTxt, id) {
         if (msgTxt != null) {
