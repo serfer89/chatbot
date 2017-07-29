@@ -69,13 +69,13 @@ var main_options = {
 
 var but_arr = [];
 for (var i=0; i<response.length; i++) {
- console.log("[{text:"+ response[i].name+", "+"callback_data: "+response[i].name+"}],");
- 
+ //console.log("[{text:"+ response[i].name+", "+"callback_data: "+response[i].name+"}],");
+ but_arr.push([{text: response[i].name, callback_data: response[i].name}]);
 }
 
 
 
-
+console.log(but_arr);
 	var jira_but = {
     
 	reply_markup: JSON.stringify({
