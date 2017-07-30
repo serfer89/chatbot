@@ -79,6 +79,45 @@ var project = function (auth_string, callback) {
 
 }
 
+//http://planetakino.atlassian.net/rest/api/2/search?jql=project="CHAT_BOT"
+
+
+var issues = function (auth_string, project, callback) {
+
+    var Client = require('node-rest-client').Client;
+
+    client = new Client();
+            var searchArgs = {
+                headers: {
+                    // Set the cookie from the session information
+                    "authorization": auth_string,
+                    "Content-Type": "application/json"
+                },};
+console.log(project);
+var search_word = 'http://planetakino.atlassian.net/rest/api/2/search?jql=project="'+project+'"&maxResults=2&fields=assignee, description, creator';
+console.log(search_word);
+ client.get(search_word, searchArgs, function(searchResult_iss, response_iss) {
+                        console.log('status code:', response_iss.statusCode);
+			//searchResult_iss=JSON.stringify(searchResult_iss);
+
+			//var arr = Object.keys(searchResult_iss).map(function(k) { return searchResult_iss[k] });
+			searchResult_iss=searchResult_iss.split('"issues":');			
+			//var arr = JSON.parse(searchResult_iss);
+                        console.log('search result:', searchResult_iss);
+                        //console.log('search result:', searchResult_iss[1].length);
+   			//searchResult.forEach(function(item, i, searchResult) { console.log( searchResult[i].name );});
+                        //console.log('search result:', searchResult_iss[1].name);
+			callback(searchResult_iss);
+                });
+
+}
+
+
+
+
+
+
+
 function tester() {
     var t = 1;
     return t;
@@ -87,5 +126,6 @@ function tester() {
 module.exports.t = tester;
 module.exports.token = token;
 module.exports.project = project;
+module.exports.issues = issues;
 
 //console.log("orign"+tester(t));
