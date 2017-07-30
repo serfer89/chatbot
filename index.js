@@ -25,7 +25,7 @@ var session_token = auth.token(login, pass, function(response) {
     return response;
 });
 var get_project;
-
+var get_issues;
 
 let stateSetName = false;
 let notes = [];
@@ -63,14 +63,12 @@ var main_options = {
 	get_project = auth.project(auth_string, function(response) {
 	
 	
-//response.forEach(function(item, i, response) { 
-
-//var but_arr = [+response.forEach(function(item, i, response) { [{text: "12", callback_data: "12"}, {text: "13", callback_data: "13"}]}+']'
 
 var but_arr = [];
 for (var i=0; i<response.length; i++) {
  //console.log("[{text:"+ response[i].name+", "+"callback_data: "+response[i].name+"}],");
- but_arr.push([{text: response[i].name, callback_data: response[i].name}]);
+but_arr.push([{text: response[i].name, callback_data: response[i].key}]);
+
 }
 
 
@@ -82,12 +80,24 @@ console.log(but_arr);
         inline_keyboard: but_arr
     })
 };
-bot.sendMessage(id, '1', jira_but);
-
-//});
+bot.sendMessage(id, 'Обери проект', jira_but);
 
 
-console.log(response.length);
+bot.on('callback_query', function(msg) {
+
+    const id = msg.from.id;
+    var project_name = msg.data;
+    console.log(project_name);
+get_issues = auth.issues(auth_string, project_name, function(issues_response) {
+	console.log("jira project started");
+});
+	
+
+    
+
+});
+
+
     return response;
 });
 	}
