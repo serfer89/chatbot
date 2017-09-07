@@ -35,7 +35,7 @@ var token = function(login, pass, callback) {
                     "Content-Type": "application/json"
                 },
                 /*     data: {
-								// Provide additional data for the JIRA search. You can modify the JQL to search for whatever you want.
+                // Provide additional data for the JIRA search. You can modify the JQL to search for whatever you want.
                                 jql: "project='BOT'"
                         }*/
             };
@@ -43,8 +43,8 @@ var token = function(login, pass, callback) {
             /*  client.post("http://planetakino.atlassian.net/rest/api/2/project", searchArgs, function(searchResult, response) {
                         console.log('status code:', response.statusCode);
                         console.log('search result:', searchResult.length);
-			var i=searchResult.length;
-   			searchResult.forEach(function(item, i, searchResult) { console.log( searchResult[i].name );});
+      var i=searchResult.length;
+         searchResult.forEach(function(item, i, searchResult) { console.log( searchResult[i].name );});
                         console.log('search result:', searchResult[1].name);
                 });*/
 
@@ -71,10 +71,10 @@ var project = function (auth_string, callback) {
  client.get("http://planetakino.atlassian.net/rest/api/2/project",searchArgs, function(searchResult, response) {
                         console.log('status code:', response.statusCode);
                         console.log('search result:', searchResult.length);
-			//var i=searchResult.length;
-   			//searchResult.forEach(function(item, i, searchResult) { console.log( searchResult[i].name );});
+      //var i=searchResult.length;
+         //searchResult.forEach(function(item, i, searchResult) { console.log( searchResult[i].name );});
                         //console.log('search result:', searchResult[1].name);
-			callback(searchResult);
+      callback(searchResult);
                 });
 
 }
@@ -94,20 +94,21 @@ var issues = function (auth_string, project, callback) {
                     "Content-Type": "application/json"
                 },};
 console.log(project);
-var search_word = 'http://planetakino.atlassian.net/rest/api/2/search?jql=project="'+project+'"&maxResults=2&fields=assignee, description, creator';
+var search_word = 'http://planetakino.atlassian.net/rest/api/2/search?jql=project="'+project+'"&maxResults=1000&fields=assignee, description, creator, status, priority, summary';
 console.log(search_word);
  client.get(search_word, searchArgs, function(searchResult_iss, response_iss) {
                         console.log('status code:', response_iss.statusCode);
-			//searchResult_iss=JSON.stringify(searchResult_iss);
-
-			//var arr = Object.keys(searchResult_iss).map(function(k) { return searchResult_iss[k] });
-			searchResult_iss=searchResult_iss.split('"issues":');			
-			//var arr = JSON.parse(searchResult_iss);
-                        console.log('search result:', searchResult_iss);
+      //searchResult_iss=JSON.stringify(searchResult_iss);
+ //var arr = Object.keys(searchResult_iss).map(function(k) { return searchResult_iss[k] });
+      //searchResult_iss=searchResult_iss.split('"issues":');      
+      //var arr = JSON.parse(searchResult_iss);
+                        //console.log('search result:', searchResult_iss.issues);
+            
+            
                         //console.log('search result:', searchResult_iss[1].length);
-   			//searchResult.forEach(function(item, i, searchResult) { console.log( searchResult[i].name );});
+         //searchResult.forEach(function(item, i, searchResult) { console.log( searchResult[i].name );});
                         //console.log('search result:', searchResult_iss[1].name);
-			callback(searchResult_iss);
+      callback(searchResult_iss);
                 });
 
 }
