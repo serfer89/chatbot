@@ -1,8 +1,6 @@
 'use strict';
 var login = "s.pavlov@planeta-kino.com.ua";
 var pass = "Veronika87";
-
-
 var auth_string = login + ":" + pass;
 var base64 = require('base-64');
 auth_string = base64.encode(auth_string);
