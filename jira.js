@@ -1,5 +1,4 @@
 //console.log("/-"+login+", "+pass);
-
 var searchArgs;
 var session = 0;
 var response;
